@@ -1,0 +1,2458 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taj Hotels & Resorts — Luxury Hotels in India & The World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       DESIGN TOKENS & RESET
+    ============================================= */
+    :root {
+      --gold:        #c9a84c;
+      --gold-light:  #e2c97e;
+      --gold-dark:   #a07830;
+      --ivory:       #faf7f2;
+      --cream:       #f4ede0;
+      --charcoal:    #1a1612;
+      --warm-dark:   #2b2218;
+      --mid:         #5c4a38;
+      --muted:       #9a8878;
+      --white:       #ffffff;
+      --nav-h:       80px;
+      --transition:  0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--charcoal);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* =============================================
+       UTILITY CLASSES
+    ============================================= */
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 40px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+    .section-label::before { display: none; }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--charcoal);
+    }
+    .section-title.light { color: var(--ivory); }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: var(--gold);
+      color: var(--charcoal);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+    .btn-primary:hover { background: var(--gold-dark); color: var(--ivory); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+    .btn-outline:hover { background: var(--gold); color: var(--charcoal); }
+
+    .btn-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: var(--transition);
+    }
+    .btn-text::after {
+      content: '→';
+      transition: transform 0.3s ease;
+    }
+    .btn-text:hover::after { transform: translateX(6px); }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 16px 0;
+    }
+
+    /* =============================================
+       TOP BAR
+    ============================================= */
+    .top-bar {
+      background: var(--charcoal);
+      padding: 8px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    }
+    .top-bar-left {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .top-bar a {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.3s;
+    }
+    .top-bar a:hover { color: var(--gold); }
+    .top-bar-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .top-bar-separator { color: rgba(201,168,76,0.3); }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      background: var(--charcoal);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      transition: background 0.4s ease;
+    }
+    .nav.scrolled {
+      background: rgba(26, 22, 18, 0.97);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .nav-logo span { color: var(--ivory); font-weight: 300; }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(250, 247, 242, 0.75);
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .nav-search {
+      color: var(--muted);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .nav-search:hover { color: var(--gold); }
+
+    .nav-book {
+      padding: 10px 24px;
+      background: var(--gold);
+      color: var(--charcoal);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+    .nav-book:hover { background: var(--gold-light); }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .nav-hamburger span {
+      width: 24px;
+      height: 1px;
+      background: var(--ivory);
+      transition: var(--transition);
+    }
+
+    /* =============================================
+       HERO SECTION
+    ============================================= */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero-slides {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .hero-slide.active { opacity: 1; }
+
+    /* Hero background images using CSS gradients as placeholders */
+    .hero-slide:nth-child(1) .hero-bg {
+      background: linear-gradient(135deg, #1a0a00 0%, #3d1f00 30%, #6b3a1f 60%, #4a2800 100%);
+    }
+    .hero-slide:nth-child(2) .hero-bg {
+      background: linear-gradient(135deg, #000d1a 0%, #003050 40%, #004d6e 70%, #002030 100%);
+    }
+    .hero-slide:nth-child(3) .hero-bg {
+      background: linear-gradient(135deg, #0a1200 0%, #1a3000 40%, #2d5000 70%, #0f2000 100%);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.08);
+      transition: transform 8s ease;
+    }
+    .hero-slide.active .hero-bg { transform: scale(1); }
+
+    /* Architectural illustration overlay */
+    .hero-slide:nth-child(1) .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 60%, rgba(201,168,76,0.08) 0%, transparent 70%),
+        linear-gradient(to top, rgba(26,22,18,0.85) 0%, rgba(26,22,18,0.3) 50%, rgba(26,22,18,0.15) 100%);
+    }
+    .hero-slide:nth-child(2) .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 40% 55%, rgba(0,80,120,0.15) 0%, transparent 70%),
+        linear-gradient(to top, rgba(26,22,18,0.85) 0%, rgba(26,22,18,0.3) 50%, rgba(26,22,18,0.1) 100%);
+    }
+    .hero-slide:nth-child(3) .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(26,22,18,0.85) 0%, rgba(26,22,18,0.2) 60%, transparent 100%);
+    }
+
+    /* Decorative palace silhouette */
+    .hero-palace {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 65%;
+      opacity: 0.12;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(26,22,18,0.9) 0%,
+        rgba(26,22,18,0.4) 40%,
+        rgba(26,22,18,0.1) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 0 80px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--ivory);
+      margin-bottom: 24px;
+      max-width: 700px;
+      opacity: 0;
+      animation: fadeUp 1s 0.5s forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-subtitle {
+      font-size: 0.78rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: rgba(250,247,242,0.65);
+      max-width: 460px;
+      line-height: 1.8;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fadeUp 1s 0.7s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 1s 0.9s forwards;
+    }
+
+    .hero-scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      right: 80px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(250,247,242,0.4);
+      font-size: 0.58rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+    .hero-scroll-line {
+      width: 40px;
+      height: 1px;
+      background: rgba(201,168,76,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-scroll-line::after {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold);
+      animation: scrollLine 2s linear infinite;
+    }
+
+    /* Slide navigation dots */
+    .hero-dots {
+      position: absolute;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 3;
+    }
+    .hero-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .hero-dot.active {
+      background: var(--gold);
+      transform: scale(1.4);
+    }
+
+    /* Hero booking bar */
+    .hero-booking {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      background: rgba(26, 22, 18, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(201,168,76,0.2);
+      padding: 0 80px;
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+    }
+    .booking-field {
+      flex: 1;
+      padding: 20px 24px;
+      border-right: 1px solid rgba(201,168,76,0.15);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .booking-field:last-of-type { border-right: none; }
+    .booking-field:hover { background: rgba(201,168,76,0.06); }
+    .booking-field-label {
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .booking-field-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--ivory);
+      font-style: italic;
+    }
+    .booking-field-placeholder {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .booking-submit {
+      padding: 0 40px;
+      background: var(--gold);
+      color: var(--charcoal);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+    .booking-submit:hover { background: var(--gold-light); }
+
+    /* =============================================
+       AWARD BANNER
+    ============================================= */
+    .award-banner {
+      background: var(--charcoal);
+      border-top: 1px solid rgba(201,168,76,0.2);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      padding: 28px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+    .award-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+    }
+    .award-icon svg { width: 100%; height: 100%; }
+    .award-text {
+      text-align: center;
+    }
+    .award-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+    .award-sub {
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* =============================================
+       EXPLORE INDIA (OFFERS CAROUSEL)
+    ============================================= */
+    .explore-section {
+      background: var(--ivory);
+      padding: 80px 0;
+      overflow: hidden;
+    }
+    .explore-header {
+      padding: 0 80px;
+      margin-bottom: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .explore-intro { max-width: 480px; }
+    .explore-sub {
+      font-size: 0.8rem;
+      color: var(--mid);
+      line-height: 1.8;
+      margin-top: 12px;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+    }
+    .carousel-track-outer {
+      overflow: hidden;
+      padding: 0 80px;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 24px;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .offer-card {
+      flex: 0 0 calc(33.333% - 16px);
+      min-width: 280px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .offer-card-img {
+      aspect-ratio: 4/5;
+      position: relative;
+      overflow: hidden;
+    }
+    .offer-card-img-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s ease;
+    }
+    .offer-card:hover .offer-card-img-bg { transform: scale(1.06); }
+
+    /* Gradient overlays for offer cards */
+    .offer-card:nth-child(1) .offer-card-img-bg { background: linear-gradient(160deg, #3d1500 0%, #7a3010 40%, #c06020 70%, #4a1800 100%); }
+    .offer-card:nth-child(2) .offer-card-img-bg { background: linear-gradient(160deg, #001525 0%, #003a5c 40%, #005a85 70%, #002035 100%); }
+    .offer-card:nth-child(3) .offer-card-img-bg { background: linear-gradient(160deg, #0a1500 0%, #1e3500 40%, #325500 70%, #101e00 100%); }
+    .offer-card:nth-child(4) .offer-card-img-bg { background: linear-gradient(160deg, #200010 0%, #4a0028 40%, #700040 70%, #300018 100%); }
+    .offer-card:nth-child(5) .offer-card-img-bg { background: linear-gradient(160deg, #251000 0%, #5a2c00 40%, #8a4510 70%, #3a1800 100%); }
+    .offer-card:nth-child(6) .offer-card-img-bg { background: linear-gradient(160deg, #001a10 0%, #003d28 40%, #005c3a 70%, #002018 100%); }
+
+    /* Decorative pattern overlay */
+    .offer-card-img-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(201,168,76,0.03) 30px, rgba(201,168,76,0.03) 31px);
+    }
+    .offer-card-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,22,18,0.8) 0%, rgba(26,22,18,0.2) 60%, transparent 100%);
+    }
+    .offer-card-label {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+    }
+    .offer-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--ivory);
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+    .offer-card-more {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap 0.3s;
+    }
+    .offer-card:hover .offer-card-more { gap: 14px; }
+    .offer-card-more::after { content: '→'; }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 40px;
+      padding: 0 80px;
+      align-items: center;
+    }
+    .carousel-btn {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(201,168,76,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: var(--mid);
+      font-size: 1rem;
+      background: none;
+    }
+    .carousel-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--charcoal);
+    }
+    .carousel-indicators {
+      display: flex;
+      gap: 8px;
+      margin: 0 20px;
+    }
+    .carousel-indicator {
+      width: 24px;
+      height: 2px;
+      background: rgba(201,168,76,0.3);
+      cursor: pointer;
+      transition: background 0.3s, width 0.3s;
+    }
+    .carousel-indicator.active {
+      width: 40px;
+      background: var(--gold);
+    }
+
+    /* =============================================
+       EXCLUSIVELY FOR YOU
+    ============================================= */
+    .exclusive-section {
+      background: var(--charcoal);
+      padding: 100px 80px;
+    }
+    .exclusive-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .exclusive-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 16px auto 0;
+      line-height: 1.8;
+    }
+
+    .exclusive-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(201,168,76,0.1);
+    }
+    .exclusive-item {
+      background: var(--warm-dark);
+      padding: 40px 32px;
+      transition: background 0.4s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .exclusive-item::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.4s ease;
+    }
+    .exclusive-item:hover { background: #221a12; }
+    .exclusive-item:hover::before { width: 100%; }
+
+    .exclusive-item-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: rgba(201,168,76,0.12);
+      line-height: 1;
+      margin-bottom: 16px;
+      transition: color 0.4s;
+    }
+    .exclusive-item:hover .exclusive-item-number { color: rgba(201,168,76,0.25); }
+
+    .exclusive-item-icon {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 20px;
+      color: var(--gold);
+    }
+    .exclusive-item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--ivory);
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+    .exclusive-item-desc {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+    .exclusive-item-link {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.3s;
+    }
+    .exclusive-item:hover .exclusive-item-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .exclusive-item-link::after { content: '→'; }
+
+    /* =============================================
+       EXPLORE MORE (HOTEL TYPES)
+    ============================================= */
+    .explore-more-section {
+      background: var(--cream);
+      padding: 100px 0;
+    }
+    .explore-more-header {
+      padding: 0 80px;
+      margin-bottom: 56px;
+    }
+
+    .hotel-types-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .hotel-type-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .hotel-type-card:first-child {
+      grid-column: span 2;
+      aspect-ratio: unset;
+    }
+
+    .hotel-type-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.7s ease;
+    }
+    .hotel-type-card:hover .hotel-type-bg { transform: scale(1.08); }
+
+    .hotel-type-card:nth-child(1) .hotel-type-bg { background: linear-gradient(135deg, #3d1500 0%, #8c3a00 40%, #c05a10 80%, #5a2000 100%); }
+    .hotel-type-card:nth-child(2) .hotel-type-bg { background: linear-gradient(135deg, #001030 0%, #002255 40%, #003878 70%, #001540 100%); }
+    .hotel-type-card:nth-child(3) .hotel-type-bg { background: linear-gradient(135deg, #150028 0%, #300060 40%, #450090 70%, #200040 100%); }
+    .hotel-type-card:nth-child(4) .hotel-type-bg { background: linear-gradient(135deg, #0a1a00 0%, #1e4000 40%, #2e6000 70%, #102000 100%); }
+    .hotel-type-card:nth-child(5) .hotel-type-bg { background: linear-gradient(135deg, #1a0a00 0%, #3d2000 40%, #6b3810 70%, #2a1200 100%); }
+
+    /* Decorative texture */
+    .hotel-type-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 30%, rgba(201,168,76,0.1) 0%, transparent 60%);
+    }
+
+    .hotel-type-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,22,18,0.85) 0%, rgba(26,22,18,0.3) 50%, rgba(26,22,18,0.05) 100%);
+      transition: background 0.4s;
+    }
+    .hotel-type-card:hover .hotel-type-overlay {
+      background: linear-gradient(to top, rgba(26,22,18,0.9) 0%, rgba(26,22,18,0.4) 60%, rgba(26,22,18,0.1) 100%);
+    }
+
+    .hotel-type-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px;
+    }
+    .hotel-type-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--ivory);
+      margin-bottom: 8px;
+    }
+    .hotel-type-card:first-child .hotel-type-name { font-size: 2.4rem; }
+    .hotel-type-cta {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.35s;
+    }
+    .hotel-type-card:hover .hotel-type-cta {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hotel-type-cta::after { content: '→'; }
+
+    /* =============================================
+       SIGNATURE DINING
+    ============================================= */
+    .dining-section {
+      background: var(--charcoal);
+      padding: 100px 0;
+    }
+    .dining-header {
+      padding: 0 80px;
+      margin-bottom: 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .dining-showcase {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1px;
+      background: rgba(201,168,76,0.1);
+      margin: 0 80px;
+    }
+
+    .dining-featured {
+      position: relative;
+      aspect-ratio: 5/4;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .dining-featured-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a0800 0%, #4a2000 30%, #8a4a10 60%, #3a1500 100%);
+      transition: transform 0.7s;
+    }
+    .dining-featured:hover .dining-featured-bg { transform: scale(1.05); }
+
+    /* Decorative dining elements */
+    .dining-featured-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 40% at 50% 40%, rgba(201,168,76,0.15) 0%, transparent 60%),
+        radial-gradient(circle 200px at 30% 60%, rgba(180, 60, 0, 0.3) 0%, transparent 70%);
+    }
+
+    .dining-featured-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,22,18,0.9) 0%, rgba(26,22,18,0.3) 60%, transparent 100%);
+    }
+    .dining-featured-content {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      right: 40px;
+    }
+    .dining-featured-tag {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .dining-featured-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--ivory);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .dining-featured-desc {
+      font-size: 0.72rem;
+      color: rgba(250,247,242,0.6);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .dining-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: rgba(201,168,76,0.1);
+    }
+    .dining-item {
+      background: var(--warm-dark);
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+      position: relative;
+    }
+    .dining-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+    .dining-item:hover { background: #221a12; }
+    .dining-item:hover::before { width: 3px; }
+
+    .dining-item-thumb {
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .dining-thumb-bg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .dining-item:nth-child(1) .dining-thumb-bg { background: linear-gradient(135deg, #4a1000 0%, #8a3000 100%); }
+    .dining-item:nth-child(2) .dining-thumb-bg { background: linear-gradient(135deg, #002030 0%, #004060 100%); }
+    .dining-item:nth-child(3) .dining-thumb-bg { background: linear-gradient(135deg, #1a0030 0%, #3a0060 100%); }
+    .dining-item:nth-child(4) .dining-thumb-bg { background: linear-gradient(135deg, #0a1a00 0%, #1c3a00 100%); }
+    .dining-item:nth-child(5) .dining-thumb-bg { background: linear-gradient(135deg, #2a0800 0%, #5a1800 100%); }
+
+    .dining-item-info { flex: 1; }
+    .dining-item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--ivory);
+      margin-bottom: 4px;
+    }
+    .dining-item-desc {
+      font-size: 0.65rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .dining-item-arrow {
+      color: rgba(201,168,76,0.3);
+      transition: all 0.3s;
+    }
+    .dining-item:hover .dining-item-arrow {
+      color: var(--gold);
+      transform: translateX(4px);
+    }
+
+    /* =============================================
+       EVENTS & WEDDINGS
+    ============================================= */
+    .events-section {
+      background: var(--ivory);
+      padding: 100px 80px;
+    }
+    .events-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .event-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .event-card-img {
+      aspect-ratio: 4/3;
+      position: relative;
+      overflow: hidden;
+    }
+    .event-card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s ease;
+    }
+    .event-card:hover .event-card-bg { transform: scale(1.07); }
+
+    .event-card:nth-child(1) .event-card-bg { background: linear-gradient(160deg, #1a0a20 0%, #3d1a50 40%, #6a3080 70%, #281040 100%); }
+    .event-card:nth-child(2) .event-card-bg { background: linear-gradient(160deg, #20100a 0%, #4a2800 40%, #7a4810 70%, #301a00 100%); }
+    .event-card:nth-child(3) .event-card-bg { background: linear-gradient(160deg, #0a1a10 0%, #1e3d28 40%, #305a40 70%, #142010 100%); }
+
+    .event-card-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,22,18,0.7) 0%, rgba(26,22,18,0.1) 60%, transparent 100%);
+    }
+    .event-card-label {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+    }
+    .event-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--ivory);
+    }
+
+    .event-card-body {
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .event-card-desc {
+      font-size: 0.75rem;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+    .event-card-footer {
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .event-card-tag {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,168,76,0.1);
+      padding: 4px 10px;
+    }
+
+    /* =============================================
+       J WELLNESS CIRCLE
+    ============================================= */
+    .wellness-section {
+      background: var(--charcoal);
+      min-height: 580px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .wellness-visual {
+      position: relative;
+      overflow: hidden;
+    }
+    .wellness-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0a1a10 0%, #0f2d1a 30%, #164028 60%, #0a200f 100%);
+    }
+    /* Lotus / mandala decorative */
+    .wellness-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 70% at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 65%),
+        radial-gradient(circle 300px at 50% 50%, rgba(20, 80, 40, 0.6) 0%, transparent 70%);
+    }
+    .wellness-mandala {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 280px;
+      height: 280px;
+      opacity: 0.15;
+    }
+
+    .wellness-content {
+      background: #0d1a12;
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .wellness-content .section-label { margin-bottom: 12px; }
+    .wellness-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 300;
+      color: var(--ivory);
+      line-height: 1.25;
+      margin-bottom: 24px;
+    }
+    .wellness-title em { font-style: italic; color: var(--gold-light); }
+    .wellness-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 36px;
+      max-width: 400px;
+    }
+    .wellness-features {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+    .wellness-feature {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .wellness-feature-label {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .wellness-feature-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--ivory);
+      line-height: 1;
+    }
+
+    /* =============================================
+       DESTINATIONS STRIP
+    ============================================= */
+    .destinations-section {
+      background: var(--charcoal);
+      border-top: 1px solid rgba(201,168,76,0.12);
+      padding: 48px 80px;
+    }
+    .destinations-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .destinations-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .destinations-scroll {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .destination-chip {
+      padding: 7px 16px;
+      border: 1px solid rgba(201,168,76,0.2);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+    .destination-chip:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.06);
+    }
+
+    /* =============================================
+       BRANDS SECTION
+    ============================================= */
+    .brands-section {
+      background: var(--warm-dark);
+      padding: 64px 80px;
+      border-top: 1px solid rgba(201,168,76,0.12);
+    }
+    .brands-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .brands-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .brands-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border: 1px solid rgba(201,168,76,0.1);
+    }
+    .brand-item {
+      flex: 0 0 calc(100% / 6);
+      padding: 24px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid rgba(201,168,76,0.1);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .brand-item:hover { background: rgba(201,168,76,0.06); }
+    .brand-item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(250,247,242,0.4);
+      letter-spacing: 0.12em;
+      text-align: center;
+      transition: color 0.3s;
+    }
+    .brand-item:hover .brand-item-name { color: var(--gold); }
+
+    /* =============================================
+       NEWSLETTER
+    ============================================= */
+    .newsletter-section {
+      background: var(--charcoal);
+      padding: 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+    .newsletter-content {}
+    .newsletter-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--ivory);
+      margin-bottom: 12px;
+    }
+    .newsletter-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+    }
+    .newsletter-input {
+      flex: 1;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-right: none;
+      color: var(--ivory);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .newsletter-input::placeholder { color: var(--muted); }
+    .newsletter-input:focus { border-color: var(--gold); }
+    .newsletter-submit {
+      padding: 16px 32px;
+      background: var(--gold);
+      color: var(--charcoal);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: background 0.3s;
+    }
+    .newsletter-submit:hover { background: var(--gold-light); }
+
+    .newsletter-contact {}
+    .contact-group { margin-bottom: 24px; }
+    .contact-label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .contact-link {
+      display: block;
+      font-size: 0.8rem;
+      color: rgba(250,247,242,0.6);
+      margin-bottom: 4px;
+      transition: color 0.3s;
+    }
+    .contact-link:hover { color: var(--gold); }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .footer {
+      background: #0f0c09;
+      padding: 64px 80px 32px;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 56px;
+    }
+    .footer-brand {}
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 14px;
+    }
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(201,168,76,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .social-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+
+    .footer-col {}
+    .footer-col-title {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-link {
+      font-size: 0.72rem;
+      color: rgba(250,247,242,0.45);
+      transition: color 0.3s;
+      letter-spacing: 0.04em;
+    }
+    .footer-link:hover { color: var(--ivory); }
+
+    .footer-bottom {
+      padding-top: 32px;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copyright {
+      font-size: 0.62rem;
+      color: rgba(250,247,242,0.25);
+      letter-spacing: 0.05em;
+    }
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-legal a {
+      font-size: 0.62rem;
+      color: rgba(250,247,242,0.25);
+      transition: color 0.3s;
+    }
+    .footer-legal a:hover { color: var(--gold); }
+
+    /* =============================================
+       ANIMATIONS
+    ============================================= */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollLine {
+      from { left: -100%; }
+      to   { left: 100%; }
+    }
+    @keyframes rotate {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* =============================================
+       MOBILE MENU
+    ============================================= */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: var(--charcoal);
+      flex-direction: column;
+      padding: 100px 40px 40px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .mobile-menu-link {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: rgba(250,247,242,0.7);
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      transition: color 0.3s;
+    }
+    .mobile-menu-link:hover { color: var(--gold); }
+    .mobile-menu-footer {
+      margin-top: auto;
+    }
+    .mobile-menu-close {
+      position: absolute;
+      top: 28px;
+      right: 24px;
+      font-size: 1.5rem;
+      color: var(--ivory);
+      cursor: pointer;
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 1200px) {
+      .exclusive-grid { grid-template-columns: repeat(2, 1fr); }
+      .hotel-types-grid { grid-template-columns: repeat(2, 1fr); }
+      .hotel-type-card:first-child { grid-column: span 2; }
+      .footer-top { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    @media (max-width: 1024px) {
+      .top-bar { display: none; }
+      .nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero-content { padding: 0 40px 140px; }
+      .hero-booking { padding: 0 24px; }
+      .booking-field:nth-child(3),
+      .booking-field:nth-child(4) { display: none; }
+      .explore-header { padding: 0 40px; }
+      .carousel-track-outer { padding: 0 40px; }
+      .offer-card { flex: 0 0 calc(50% - 12px); }
+      .exclusive-section { padding: 80px 40px; }
+      .explore-more-section { padding: 80px 0; }
+      .explore-more-header { padding: 0 40px; }
+      .dining-section { padding: 80px 0; }
+      .dining-header { padding: 0 40px; }
+      .dining-showcase { margin: 0 40px; }
+      .events-section { padding: 80px 40px; }
+      .wellness-content { padding: 60px 40px; }
+      .destinations-section { padding: 48px 40px; }
+      .brands-section { padding: 56px 40px; }
+      .brand-item { flex: 0 0 calc(100% / 4); }
+      .newsletter-section { grid-template-columns: 1fr; gap: 48px; padding: 64px 40px; }
+      .footer { padding: 56px 40px 32px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-content { padding: 0 24px 160px; }
+      .hero-booking { flex-wrap: wrap; }
+      .booking-field { flex: 0 0 50%; }
+      .booking-field:nth-child(3) { display: flex; }
+      .booking-submit { flex: 0 0 100%; padding: 16px 24px; }
+      .offer-card { flex: 0 0 calc(80% - 12px); }
+      .exclusive-grid { grid-template-columns: 1fr; }
+      .hotel-types-grid { grid-template-columns: 1fr; }
+      .hotel-type-card:first-child { grid-column: span 1; }
+      .dining-showcase { grid-template-columns: 1fr; margin: 0 24px; }
+      .events-grid { grid-template-columns: 1fr; }
+      .wellness-section { grid-template-columns: 1fr; }
+      .wellness-visual { min-height: 280px; }
+      .brand-item { flex: 0 0 calc(100% / 3); }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .carousel-controls { padding: 0 24px; }
+      .hero-dots { display: none; }
+      .hero-scroll-indicator { display: none; }
+      .award-banner { padding: 24px; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-input { border-right: 1px solid rgba(201,168,76,0.2); }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2.4rem; }
+      .booking-field { flex: 0 0 100%; }
+      .brand-item { flex: 0 0 50%; }
+      .destinations-scroll { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       TOP BAR
+  ============================================= -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <a href="#">Neupass Login</a>
+      <a href="#">Taj Magazine</a>
+      <a href="#">Gifting</a>
+    </div>
+    <div class="top-bar-right">
+      <a href="#">INR</a>
+      <span class="top-bar-separator">|</span>
+      <a href="#">EN</a>
+      <span class="top-bar-separator">|</span>
+      <a href="#">+91 1800-111-825</a>
+    </div>
+  </div>
+
+  <!-- =============================================
+       NAVIGATION
+  ============================================= -->
+  <nav class="nav" id="mainNav">
+    <a href="#" class="nav-logo">TAJ <span>Hotels</span></a>
+
+    <div class="nav-links">
+      <a href="#">Destinations</a>
+      <a href="#">Hotels</a>
+      <a href="#">Experiences</a>
+      <a href="#">Offers</a>
+      <a href="#">Memberships</a>
+      <a href="#">Dining</a>
+      <a href="#">Weddings</a>
+    </div>
+
+    <div class="nav-cta">
+      <span class="nav-search">&#9906;</span>
+      <a href="#" class="nav-book">Book a Stay</a>
+      <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <span class="mobile-menu-close" onclick="toggleMenu()">✕</span>
+    <nav class="mobile-menu-links">
+      <a href="#" class="mobile-menu-link">Destinations</a>
+      <a href="#" class="mobile-menu-link">Hotels</a>
+      <a href="#" class="mobile-menu-link">Experiences</a>
+      <a href="#" class="mobile-menu-link">Offers</a>
+      <a href="#" class="mobile-menu-link">Memberships</a>
+      <a href="#" class="mobile-menu-link">Dining</a>
+      <a href="#" class="mobile-menu-link">Weddings</a>
+    </nav>
+    <div class="mobile-menu-footer">
+      <a href="#" class="btn-primary">Book a Stay →</a>
+    </div>
+  </div>
+
+  <!-- =============================================
+       HERO SECTION
+  ============================================= -->
+  <section class="hero">
+    <div class="hero-slides" id="heroSlides">
+      <!-- Slide 1 -->
+      <div class="hero-slide active">
+        <div class="hero-bg">
+          <!-- SVG Palace Silhouette Decorative -->
+          <svg class="hero-palace" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMax meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,600 L0,380 L60,380 L60,340 L100,340 L100,280 L120,280 L120,260 L140,260 L140,240 L150,240 L150,220 L160,220 L160,200 L170,200 L170,180 L180,180 L180,160 L185,130 L190,160 L190,180 L200,180 L200,200 L210,200 L210,220 L220,220 L220,240 L230,240 L230,260 L250,260 L250,280 L270,280 L270,340 L310,340 L310,280 L330,280 L330,200 L340,180 L342,140 L344,100 L350,60 L356,100 L358,140 L360,180 L370,200 L370,280 L390,280 L390,340 L430,340 L430,280 L450,280 L450,260 L460,260 L460,240 L465,220 L470,200 L480,180 L490,160 L500,140 L505,100 L510,60 L515,100 L520,140 L530,160 L540,180 L550,200 L560,220 L565,240 L570,260 L580,260 L580,280 L600,280 L600,340 L640,340 L640,280 L660,280 L660,200 L670,180 L675,140 L680,100 L685,60 L690,100 L695,140 L700,180 L710,200 L710,280 L730,280 L730,340 L770,340 L770,280 L790,280 L790,260 L800,240 L810,220 L820,200 L830,180 L840,160 L850,140 L855,100 L860,60 L865,100 L870,140 L880,160 L890,180 L900,200 L910,220 L920,240 L930,260 L940,280 L960,280 L960,340 L1000,340 L1000,280 L1020,280 L1020,260 L1040,260 L1040,240 L1050,240 L1050,220 L1060,220 L1060,200 L1070,200 L1070,180 L1080,180 L1080,160 L1085,130 L1090,160 L1090,180 L1100,180 L1100,200 L1110,200 L1110,220 L1120,220 L1120,240 L1130,240 L1130,260 L1150,260 L1150,280 L1170,280 L1170,340 L1200,340 L1200,380 L1200,600 Z" fill="rgba(201,168,76,0.15)"/>
+          </svg>
+        </div>
+        <div class="hero-overlay"></div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="hero-slide">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="hero-slide">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+      </div>
+    </div>
+
+    <!-- Slide navigation dots -->
+    <div class="hero-dots">
+      <div class="hero-dot active" onclick="goToSlide(0)"></div>
+      <div class="hero-dot" onclick="goToSlide(1)"></div>
+      <div class="hero-dot" onclick="goToSlide(2)"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
+      <div class="hero-eyebrow">World's Strongest Hotel Brand · Brand Finance 2025</div>
+      <h1 class="hero-title">
+        India's <em>Pride,</em><br>
+        World's Finest
+      </h1>
+      <p class="hero-subtitle">
+        Step into a world of legendary hospitality, where every sojourn is a seamless blend of opulence, culture, and grace.
+      </p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">Explore Our Hotels</a>
+        <a href="#" class="btn-outline">View Offers</a>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="hero-scroll-indicator">
+      <div class="hero-scroll-line"></div>
+      Scroll to Discover
+    </div>
+
+    <!-- Booking Bar -->
+    <div class="hero-booking">
+      <div class="booking-field">
+        <div class="booking-field-label">Destination</div>
+        <div class="booking-field-placeholder">Where would you like to stay?</div>
+      </div>
+      <div class="booking-field">
+        <div class="booking-field-label">Check In</div>
+        <div class="booking-field-value">Select Date</div>
+      </div>
+      <div class="booking-field">
+        <div class="booking-field-label">Check Out</div>
+        <div class="booking-field-value">Select Date</div>
+      </div>
+      <div class="booking-field">
+        <div class="booking-field-label">Guests</div>
+        <div class="booking-field-value">2 Adults</div>
+      </div>
+      <div class="booking-field">
+        <div class="booking-field-label">Promo Code</div>
+        <div class="booking-field-placeholder">Enter code</div>
+      </div>
+      <button class="booking-submit">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Check Availability
+      </button>
+    </div>
+  </section>
+
+  <!-- =============================================
+       AWARD BANNER
+  ============================================= -->
+  <div class="award-banner reveal">
+    <div class="award-icon">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 4L23.09 13.26H33L25.45 18.74L28.55 28L20 22.52L11.45 28L14.55 18.74L7 13.26H16.91L20 4Z" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+        <circle cx="20" cy="20" r="17" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="award-text">
+      <div class="award-title">India's Pride &amp; World's Strongest Hotel Brand</div>
+      <div class="award-sub">Brand Finance Hotel 50 Report 2025 · India's Strongest Brand Across All Sectors</div>
+    </div>
+    <div class="award-icon">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 4L23.09 13.26H33L25.45 18.74L28.55 28L20 22.52L11.45 28L14.55 18.74L7 13.26H16.91L20 4Z" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+        <circle cx="20" cy="20" r="17" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- =============================================
+       EXPLORE INDIA WITH TAJ
+  ============================================= -->
+  <section class="explore-section">
+    <div class="explore-header reveal">
+      <div class="explore-intro">
+        <div class="section-label">Explore India With Taj</div>
+        <h2 class="section-title">Curated Journeys,<br>Timeless Memories</h2>
+        <p class="explore-sub">Embark on a journey of a lifetime and create unforgettable memories as you experience India with Taj.</p>
+      </div>
+      <a href="#" class="btn-text">View All Offers</a>
+    </div>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-track-outer">
+        <div class="carousel-track" id="offerTrack">
+          <div class="offer-card reveal">
+            <div class="offer-card-img">
+              <div class="offer-card-img-bg"></div>
+              <div class="offer-card-img-overlay"></div>
+              <div class="offer-card-label">
+                <div class="offer-card-name">Royal Experiences</div>
+                <div class="offer-card-more">Explore</div>
+              </div>
+            </div>
+          </div>
+          <div class="offer-card reveal reveal-delay-1">
+            <div class="offer-card-img">
+              <div class="offer-card-img-bg"></div>
+              <div class="offer-card-img-overlay"></div>
+              <div class="offer-card-label">
+                <div class="offer-card-name">Taj Holidays</div>
+                <div class="offer-card-more">Explore</div>
+              </div>
+            </div>
+          </div>
+          <div class="offer-card reveal reveal-delay-2">
+            <div class="offer-card-img">
+              <div class="offer-card-img-bg"></div>
+              <div class="offer-card-img-overlay"></div>
+              <div class="offer-card-label">
+                <div class="offer-card-name">Breakfast Inclusive</div>
+                <div class="offer-card-more">Explore</div>
+              </div>
+            </div>
+          </div>
+          <div class="offer-card reveal reveal-delay-3">
+            <div class="offer-card-img">
+              <div class="offer-card-img-bg"></div>
+              <div class="offer-card-img-overlay"></div>
+              <div class="offer-card-label">
+                <div class="offer-card-name">Suite Surprises</div>
+                <div class="offer-card-more">Explore</div>
+              </div>
+            </div>
+          </div>
+          <div class="offer-card reveal reveal-delay-4">
+            <div class="offer-card-img">
+              <div class="offer-card-img-bg"></div>
+              <div class="offer-card-img-overlay"></div>
+              <div class="offer-card-label">
+                <div class="offer-card-name">Perfect Staycations</div>
+                <div class="offer-card-more">Explore</div>
+              </div>
+            </div>
+          </div>
+          <div class="offer-card reveal reveal-delay-4">
+            <div class="offer-card-img">
+              <div class="offer-card-img-bg"></div>
+              <div class="offer-card-img-overlay"></div>
+              <div class="offer-card-label">
+                <div class="offer-card-name">Stay a Bit Longer</div>
+                <div class="offer-card-more">Explore</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="offerPrev" onclick="slideCarousel('offer', -1)">&#8592;</button>
+        <div class="carousel-indicators" id="offerIndicators"></div>
+        <button class="carousel-btn" id="offerNext" onclick="slideCarousel('offer', 1)">&#8594;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       EXCLUSIVELY FOR YOU
+  ============================================= -->
+  <section class="exclusive-section">
+    <div class="exclusive-header reveal">
+      <div class="section-label">Exclusively for You</div>
+      <h2 class="section-title light">Refinement &amp; Dreamlike<br>Destinations</h2>
+      <p class="exclusive-sub">Refinement and creativity intertwine with dreamlike destinations and soulful moments on each sojourn with Taj.</p>
+    </div>
+
+    <div class="exclusive-grid reveal">
+      <div class="exclusive-item">
+        <div class="exclusive-item-number">01</div>
+        <div class="exclusive-item-name">India With Taj</div>
+        <p class="exclusive-item-desc">From royal palaces of Rajasthan to serene backwaters of Kerala, experience world class service that celebrates the soul of India.</p>
+        <div class="exclusive-item-link">Discover More</div>
+      </div>
+      <div class="exclusive-item">
+        <div class="exclusive-item-number">02</div>
+        <div class="exclusive-item-name">Soulful Abodes</div>
+        <p class="exclusive-item-desc">Reconnect with your spirit, awaken your inner wisdom and discover a deeper sense of peace as you experience India's spiritual destinations.</p>
+        <div class="exclusive-item-link">Discover More</div>
+      </div>
+      <div class="exclusive-item">
+        <div class="exclusive-item-number">03</div>
+        <div class="exclusive-item-name">Neupass Membership</div>
+        <p class="exclusive-item-desc">Our exclusive membership program that offers special savings on stays, dining, spas and more — curated for the discerning traveller.</p>
+        <div class="exclusive-item-link">Login / Join</div>
+      </div>
+      <div class="exclusive-item">
+        <div class="exclusive-item-number">04</div>
+        <div class="exclusive-item-name">Woyage</div>
+        <p class="exclusive-item-desc">A symphony of packages curated specially for her, ranging from adventure breaks to blissful escapes and everything in between.</p>
+        <div class="exclusive-item-link">Discover More</div>
+      </div>
+      <div class="exclusive-item">
+        <div class="exclusive-item-number">05</div>
+        <div class="exclusive-item-name">Timeless Weddings</div>
+        <p class="exclusive-item-desc">Let your special day transcend into an unforgettable celebration at our iconic destinations, enveloped in our legendary hospitality.</p>
+        <div class="exclusive-item-link">Plan Your Wedding</div>
+      </div>
+      <div class="exclusive-item">
+        <div class="exclusive-item-number">06</div>
+        <div class="exclusive-item-name">Offers &amp; Promotions</div>
+        <p class="exclusive-item-desc">Experience unparalleled luxury as you enjoy special savings and exclusive offers through our enticing range of promotions.</p>
+        <div class="exclusive-item-link">View All Offers</div>
+      </div>
+      <div class="exclusive-item">
+        <div class="exclusive-item-number">07</div>
+        <div class="exclusive-item-name">Palace Journeys</div>
+        <p class="exclusive-item-desc">Immerse yourself in the sheer majesty of India's most iconic palaces, and treat yourself to incredible, once-in-a-lifetime journeys.</p>
+        <div class="exclusive-item-link">Explore Palaces</div>
+      </div>
+      <div class="exclusive-item">
+        <div class="exclusive-item-number">08</div>
+        <div class="exclusive-item-name">IHCL SeleQtions</div>
+        <p class="exclusive-item-desc">A collection of storied hotels, with individual identities and a soulful connection to their destinations — each with a unique narrative.</p>
+        <div class="exclusive-item-link">Discover More</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       EXPLORE MORE — HOTEL TYPES
+  ============================================= -->
+  <section class="explore-more-section">
+    <div class="explore-more-header reveal">
+      <div class="section-label">Explore More</div>
+      <h2 class="section-title">A World of Extraordinary<br>Stays Awaits</h2>
+    </div>
+
+    <div class="hotel-types-grid">
+      <div class="hotel-type-card">
+        <div class="hotel-type-bg">
+          <!-- Decorative palace illustration in first large card -->
+          <svg style="position:absolute;bottom:0;left:0;right:0;width:100%;height:60%;opacity:0.08" viewBox="0 0 800 400" fill="none" preserveAspectRatio="xMidYMax meet">
+            <path d="M0,400 L0,250 L50,250 L50,200 L80,200 L80,160 L100,160 L100,140 L110,140 L110,120 L120,120 L120,100 L125,70 L130,100 L130,120 L140,120 L140,140 L150,140 L150,160 L170,160 L170,200 L200,200 L200,160 L215,160 L215,100 L220,60 L225,20 L230,60 L235,100 L250,160 L250,200 L280,200 L280,160 L300,160 L300,140 L310,140 L310,120 L315,100 L320,80 L325,60 L330,40 L335,60 L340,80 L345,100 L350,120 L355,140 L360,160 L380,160 L380,200 L410,200 L410,160 L430,160 L430,100 L435,60 L440,20 L445,60 L450,100 L465,160 L465,200 L490,200 L490,160 L510,160 L510,140 L520,140 L520,120 L530,120 L530,100 L535,70 L540,100 L540,120 L550,120 L550,140 L560,140 L560,160 L580,160 L580,200 L610,200 L610,160 L625,160 L625,100 L630,60 L635,20 L640,60 L645,100 L660,160 L660,200 L690,200 L690,160 L710,160 L710,140 L720,140 L720,120 L725,100 L730,70 L735,100 L735,120 L745,120 L745,140 L750,140 L750,160 L770,160 L770,200 L800,200 L800,250 L800,400 Z" fill="rgba(201,168,76,0.5)"/>
+          </svg>
+        </div>
+        <div class="hotel-type-overlay"></div>
+        <div class="hotel-type-content">
+          <div class="hotel-type-name">Living Palaces</div>
+          <div class="hotel-type-cta">Discover Palaces</div>
+        </div>
+      </div>
+      <div class="hotel-type-card">
+        <div class="hotel-type-bg"></div>
+        <div class="hotel-type-overlay"></div>
+        <div class="hotel-type-content">
+          <div class="hotel-type-name">Idyllic Resorts</div>
+          <div class="hotel-type-cta">Explore Resorts</div>
+        </div>
+      </div>
+      <div class="hotel-type-card">
+        <div class="hotel-type-bg"></div>
+        <div class="hotel-type-overlay"></div>
+        <div class="hotel-type-content">
+          <div class="hotel-type-name">City Hotels</div>
+          <div class="hotel-type-cta">View Hotels</div>
+        </div>
+      </div>
+      <div class="hotel-type-card">
+        <div class="hotel-type-bg"></div>
+        <div class="hotel-type-overlay"></div>
+        <div class="hotel-type-content">
+          <div class="hotel-type-name">Enchanting Safaris</div>
+          <div class="hotel-type-cta">Explore Safaris</div>
+        </div>
+      </div>
+      <div class="hotel-type-card">
+        <div class="hotel-type-bg"></div>
+        <div class="hotel-type-overlay"></div>
+        <div class="hotel-type-content">
+          <div class="hotel-type-name">New Openings</div>
+          <div class="hotel-type-cta">What's New</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SIGNATURE DINING
+  ============================================= -->
+  <section class="dining-section">
+    <div class="dining-header reveal">
+      <div>
+        <div class="section-label">Signature Dining</div>
+        <h2 class="section-title light">Masterful Culinary<br>Artistry</h2>
+      </div>
+      <a href="#" class="btn-outline">Explore Dining</a>
+    </div>
+
+    <div class="dining-showcase reveal">
+      <div class="dining-featured">
+        <div class="dining-featured-bg"></div>
+        <div class="dining-featured-overlay"></div>
+        <div class="dining-featured-content">
+          <div class="dining-featured-tag">Legendary Restaurants</div>
+          <h3 class="dining-featured-title">Premier Global<br>Cuisines</h3>
+          <p class="dining-featured-desc">Experience the best of local and world flavours where authentic ingredients and techniques blend seamlessly for unparalleled culinary harmony.</p>
+          <a href="#" class="btn-text" style="color:var(--gold)">Explore Restaurants</a>
+        </div>
+      </div>
+
+      <div class="dining-list">
+        <div class="dining-item">
+          <div class="dining-item-thumb"><div class="dining-thumb-bg"></div></div>
+          <div class="dining-item-info">
+            <div class="dining-item-name">Signature Recipes</div>
+            <div class="dining-item-desc">Culinary mastery through flavour and texture</div>
+          </div>
+          <span class="dining-item-arrow">→</span>
+        </div>
+        <div class="dining-item">
+          <div class="dining-item-thumb"><div class="dining-thumb-bg"></div></div>
+          <div class="dining-item-info">
+            <div class="dining-item-name">Premier Global Cuisines</div>
+            <div class="dining-item-desc">Authentic ingredients, world-class techniques</div>
+          </div>
+          <span class="dining-item-arrow">→</span>
+        </div>
+        <div class="dining-item">
+          <div class="dining-item-thumb"><div class="dining-thumb-bg"></div></div>
+          <div class="dining-item-info">
+            <div class="dining-item-name">Beyond the Ordinary</div>
+            <div class="dining-item-desc">Bespoke service in opulent settings</div>
+          </div>
+          <span class="dining-item-arrow">→</span>
+        </div>
+        <div class="dining-item">
+          <div class="dining-item-thumb"><div class="dining-thumb-bg"></div></div>
+          <div class="dining-item-info">
+            <div class="dining-item-name">Celebrated Chefs</div>
+            <div class="dining-item-desc">World-class talent, extraordinary creativity</div>
+          </div>
+          <span class="dining-item-arrow">→</span>
+        </div>
+        <div class="dining-item">
+          <div class="dining-item-thumb"><div class="dining-thumb-bg"></div></div>
+          <div class="dining-item-info">
+            <div class="dining-item-name">Legendary Restaurants</div>
+            <div class="dining-item-desc">Iconic dining, recognized worldwide</div>
+          </div>
+          <span class="dining-item-arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       EVENTS, CONFERENCES & WEDDINGS
+  ============================================= -->
+  <section class="events-section">
+    <div class="events-header reveal">
+      <div class="section-label">Events &amp; Conferences</div>
+      <h2 class="section-title">Elevating Every Occasion<br>into Unforgettable Experiences</h2>
+    </div>
+
+    <div class="events-grid">
+      <div class="event-card reveal">
+        <div class="event-card-img">
+          <div class="event-card-bg"></div>
+          <div class="event-card-label">
+            <div class="event-card-name">Meetings &amp; Conferences</div>
+          </div>
+        </div>
+        <div class="event-card-body">
+          <p class="event-card-desc">State-of-the-art venues with personalised service for impactful business meetings and international conferences.</p>
+        </div>
+        <div class="event-card-footer">
+          <span class="event-card-tag">Corporate</span>
+          <a href="#" class="btn-text" style="font-size:0.58rem">Enquire</a>
+        </div>
+      </div>
+      <div class="event-card reveal reveal-delay-1">
+        <div class="event-card-img">
+          <div class="event-card-bg"></div>
+          <div class="event-card-label">
+            <div class="event-card-name">Special Events</div>
+          </div>
+        </div>
+        <div class="event-card-body">
+          <p class="event-card-desc">Immersive, awe-inspiring experiences designed to make your special occasion a cherished memory for all who attend.</p>
+        </div>
+        <div class="event-card-footer">
+          <span class="event-card-tag">Social</span>
+          <a href="#" class="btn-text" style="font-size:0.58rem">Enquire</a>
+        </div>
+      </div>
+      <div class="event-card reveal reveal-delay-2">
+        <div class="event-card-img">
+          <div class="event-card-bg"></div>
+          <div class="event-card-label">
+            <div class="event-card-name">Timeless Weddings</div>
+          </div>
+        </div>
+        <div class="event-card-body">
+          <p class="event-card-desc">Let your special day transcend into an unforgettable celebration at our iconic destinations with our legendary hospitality.</p>
+        </div>
+        <div class="event-card-footer">
+          <span class="event-card-tag">Weddings</span>
+          <a href="#" class="btn-text" style="font-size:0.58rem">Plan Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       J WELLNESS CIRCLE
+  ============================================= -->
+  <section class="wellness-section">
+    <div class="wellness-visual">
+      <div class="wellness-bg"></div>
+      <!-- Decorative Mandala -->
+      <svg class="wellness-mandala" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="animation: rotate 60s linear infinite;">
+        <circle cx="100" cy="100" r="90" stroke="#c9a84c" stroke-width="0.5"/>
+        <circle cx="100" cy="100" r="70" stroke="#c9a84c" stroke-width="0.5"/>
+        <circle cx="100" cy="100" r="50" stroke="#c9a84c" stroke-width="0.5"/>
+        <circle cx="100" cy="100" r="30" stroke="#c9a84c" stroke-width="0.5"/>
+        <line x1="100" y1="10" x2="100" y2="190" stroke="#c9a84c" stroke-width="0.5"/>
+        <line x1="10" y1="100" x2="190" y2="100" stroke="#c9a84c" stroke-width="0.5"/>
+        <line x1="36.36" y1="36.36" x2="163.64" y2="163.64" stroke="#c9a84c" stroke-width="0.5"/>
+        <line x1="163.64" y1="36.36" x2="36.36" y2="163.64" stroke="#c9a84c" stroke-width="0.5"/>
+        <path d="M100,10 L106,50 L100,30 L94,50 Z" fill="#c9a84c" opacity="0.3"/>
+        <path d="M100,190 L106,150 L100,170 L94,150 Z" fill="#c9a84c" opacity="0.3"/>
+        <path d="M10,100 L50,106 L30,100 L50,94 Z" fill="#c9a84c" opacity="0.3"/>
+        <path d="M190,100 L150,106 L170,100 L150,94 Z" fill="#c9a84c" opacity="0.3"/>
+        <circle cx="100" cy="100" r="8" stroke="#c9a84c" stroke-width="0.5" fill="rgba(201,168,76,0.1)"/>
+      </svg>
+    </div>
+
+    <div class="wellness-content reveal">
+      <div class="section-label">J Wellness Circle</div>
+      <h2 class="wellness-title">A Sanctuary for<br>the <em>Mind, Body</em><br>and Soul</h2>
+      <p class="wellness-desc">Welcome to a sanctuary that seamlessly blends Indian heritage healing with serene contemporary comforts. Rediscover your truest self.</p>
+      <div class="wellness-features">
+        <div class="wellness-feature">
+          <div class="wellness-feature-label">Spa Locations</div>
+          <div class="wellness-feature-value">60+</div>
+        </div>
+        <div class="wellness-feature">
+          <div class="wellness-feature-label">Treatments</div>
+          <div class="wellness-feature-value">200+</div>
+        </div>
+        <div class="wellness-feature">
+          <div class="wellness-feature-label">Heritage Rituals</div>
+          <div class="wellness-feature-value">40+</div>
+        </div>
+      </div>
+      <a href="#" class="btn-primary">Explore Wellness</a>
+    </div>
+  </section>
+
+  <!-- =============================================
+       DESTINATIONS STRIP
+  ============================================= -->
+  <section class="destinations-section">
+    <div class="destinations-header">
+      <div class="destinations-label">Popular Destinations</div>
+      <a href="#" class="btn-text" style="font-size:0.58rem">View All Destinations</a>
+    </div>
+    <div class="destinations-scroll">
+      <div class="destination-chip">Mumbai</div>
+      <div class="destination-chip">New Delhi</div>
+      <div class="destination-chip">Jaipur</div>
+      <div class="destination-chip">Goa</div>
+      <div class="destination-chip">Udaipur</div>
+      <div class="destination-chip">Agra</div>
+      <div class="destination-chip">Kerala</div>
+      <div class="destination-chip">Bengaluru</div>
+      <div class="destination-chip">Kolkata</div>
+      <div class="destination-chip">Hyderabad</div>
+      <div class="destination-chip">Maldives</div>
+      <div class="destination-chip">London</div>
+      <div class="destination-chip">New York</div>
+      <div class="destination-chip">Dubai</div>
+      <div class="destination-chip">Cape Town</div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       OUR BRANDS
+  ============================================= -->
+  <section class="brands-section reveal">
+    <div class="brands-header">
+      <div class="brands-label">Our Portfolio of Brands</div>
+    </div>
+    <div class="brands-grid">
+      <div class="brand-item"><div class="brand-item-name">Taj Hotels</div></div>
+      <div class="brand-item"><div class="brand-item-name">Vivanta</div></div>
+      <div class="brand-item"><div class="brand-item-name">SeleQtions</div></div>
+      <div class="brand-item"><div class="brand-item-name">Gateway Hotels</div></div>
+      <div class="brand-item"><div class="brand-item-name">Ginger Hotels</div></div>
+      <div class="brand-item"><div class="brand-item-name">The Claridges</div></div>
+      <div class="brand-item"><div class="brand-item-name">Brij Hotels</div></div>
+      <div class="brand-item"><div class="brand-item-name">Clarks Hotels</div></div>
+      <div class="brand-item"><div class="brand-item-name">Atmantan</div></div>
+      <div class="brand-item"><div class="brand-item-name">Tree of Life</div></div>
+      <div class="brand-item"><div class="brand-item-name">Ama Stays</div></div>
+      <div class="brand-item"><div class="brand-item-name">Taj SATS</div></div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       NEWSLETTER
+  ============================================= -->
+  <section class="newsletter-section">
+    <div class="newsletter-content reveal">
+      <div class="section-label">Stay Connected</div>
+      <h3 class="newsletter-title">Subscribe for<br>Latest Updates</h3>
+      <p class="newsletter-desc">Be the first to receive our exclusive offers, new openings and curated experiences from across the world.</p>
+      <div style="margin-top:32px">
+        <div class="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="Enter your email address" />
+          <button class="newsletter-submit">Subscribe</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="newsletter-contact reveal reveal-delay-2">
+      <div class="contact-group">
+        <div class="contact-label">For Bookings Contact</div>
+        <a href="tel:1-800-111-825" class="contact-link">1-800-111-825</a>
+        <a href="mailto:reservations@ihcltata.com" class="contact-link">reservations@ihcltata.com</a>
+      </div>
+      <div class="contact-group">
+        <div class="contact-label">Customer Support</div>
+        <a href="mailto:contacttaj@tajhotels.com" class="contact-link">contacttaj@tajhotels.com</a>
+        <a href="mailto:website.feedback@tajhotels.com" class="contact-link">website.feedback@tajhotels.com</a>
+      </div>
+      <div class="contact-group">
+        <div class="contact-label">Connect With Us</div>
+        <div style="display:flex;gap:10px;margin-top:4px">
+          <a href="#" class="social-btn">f</a>
+          <a href="#" class="social-btn">𝕏</a>
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">▶</a>
+          <a href="#" class="social-btn">🔗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FOOTER
+  ============================================= -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">TAJ Hotels</div>
+        <div class="footer-tagline">
+          India's pride and the world's finest — a legacy of legendary hospitality since 1903.
+        </div>
+        <div class="footer-social">
+          <a href="#" class="social-btn">f</a>
+          <a href="#" class="social-btn">𝕏</a>
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">▶</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Hotels</a>
+          <a href="#" class="footer-link">Dining</a>
+          <a href="#" class="footer-link">Holidays</a>
+          <a href="#" class="footer-link">Wellness</a>
+          <a href="#" class="footer-link">Offers</a>
+          <a href="#" class="footer-link">Weddings</a>
+          <a href="#" class="footer-link">Gifting</a>
+          <a href="#" class="footer-link">Event Venues</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Memberships</div>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Neupass</a>
+          <a href="#" class="footer-link">Epicure</a>
+          <a href="#" class="footer-link">HSBC Taj Credit Card</a>
+          <a href="#" class="footer-link">Taj Magazine</a>
+          <a href="#" class="footer-link">Taj Blog</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">About Us</div>
+        <div class="footer-links">
+          <a href="#" class="footer-link">About Taj</a>
+          <a href="#" class="footer-link">Corporate (IHCL)</a>
+          <a href="#" class="footer-link">Pressroom</a>
+          <a href="#" class="footer-link">Careers</a>
+          <a href="#" class="footer-link">Investor Relations</a>
+          <a href="#" class="footer-link">Partners</a>
+          <a href="#" class="footer-link">Sitemap</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Terms of Service</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Cookies Policy</a>
+          <a href="#" class="footer-link">Accessibility</a>
+          <a href="#" class="footer-link">Best Rate Guarantee</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        © 2026 The Indian Hotels Company Limited. All Rights Reserved.
+      </div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Cookie Settings</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =============================================
+       JAVASCRIPT
+  ============================================= -->
+  <script>
+    // ---- NAV SCROLL EFFECT ----
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ---- MOBILE MENU ----
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+      document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('open') ? 'hidden' : '';
+    }
+
+    // ---- HERO SLIDER ----
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    const heroDots   = document.querySelectorAll('.hero-dot');
+    let currentSlide = 0;
+    let heroTimer;
+
+    function goToSlide(index) {
+      heroSlides[currentSlide].classList.remove('active');
+      heroDots[currentSlide].classList.remove('active');
+      currentSlide = index;
+      heroSlides[currentSlide].classList.add('active');
+      heroDots[currentSlide].classList.add('active');
+      clearInterval(heroTimer);
+      heroTimer = setInterval(nextSlide, 6000);
+    }
+
+    function nextSlide() {
+      goToSlide((currentSlide + 1) % heroSlides.length);
+    }
+
+    heroTimer = setInterval(nextSlide, 6000);
+
+    // ---- CAROUSEL ----
+    const carousels = {};
+
+    function initCarousel(id, trackId, itemSelector) {
+      const track = document.getElementById(trackId);
+      if (!track) return;
+      const items = track.querySelectorAll(itemSelector);
+      const outer = track.parentElement;
+      let perView = window.innerWidth > 1024 ? 3 : window.innerWidth > 640 ? 2 : 1;
+      const total = Math.ceil(items.length / perView);
+      carousels[id] = { track, items, outer, perView, total, current: 0 };
+
+      // Build indicators
+      const indContainer = document.getElementById(id + 'Indicators');
+      if (indContainer) {
+        indContainer.innerHTML = '';
+        for (let i = 0; i < total; i++) {
+          const dot = document.createElement('div');
+          dot.className = 'carousel-indicator' + (i === 0 ? ' active' : '');
+          dot.onclick = () => setCarousel(id, i);
+          indContainer.appendChild(dot);
+        }
+      }
+    }
+
+    function setCarousel(id, index) {
+      const c = carousels[id];
+      if (!c) return;
+      c.current = Math.max(0, Math.min(index, c.total - 1));
+      const itemW = c.items[0].offsetWidth + 24;
+      c.track.style.transform = `translateX(-${c.current * itemW * c.perView}px)`;
+
+      const inds = document.getElementById(id + 'Indicators');
+      if (inds) {
+        inds.querySelectorAll('.carousel-indicator').forEach((d, i) => {
+          d.classList.toggle('active', i === c.current);
+        });
+      }
+    }
+
+    function slideCarousel(id, dir) {
+      const c = carousels[id];
+      if (!c) return;
+      setCarousel(id, c.current + dir);
+    }
+
+    initCarousel('offer', 'offerTrack', '.offer-card');
+    window.addEventListener('resize', () => initCarousel('offer', 'offerTrack', '.offer-card'));
+
+    // ---- SCROLL REVEAL ----
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => revealObs.observe(el));
+  </script>
+
+</body>
+</html>
